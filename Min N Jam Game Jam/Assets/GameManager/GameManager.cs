@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     public StickerShower sticker;
 
+    public CameraShake camera;
     public SpellingCheck playerSpelling;
     public RandomWordPicker wordPicker;
     public UIEnableAndDisable uIEnableAndDisable;
@@ -85,7 +86,8 @@ public class GameManager : MonoBehaviour
         uIEnableAndDisable.enableUI = true;
         AIAnimator.SetBool("Box_bool",true);
         playerAnim.SetBool("Hit_bool",true);
-        yield return new WaitForSeconds(1);
+        camera.ShakeIt();
+        yield return new WaitForSeconds(.1f);
         AIAnimator.SetBool("Box_bool",false);
         playerAnim.SetBool("Hit_bool",false);
        
@@ -100,7 +102,8 @@ public class GameManager : MonoBehaviour
         aiSpelling.correctSpelled = false;
         AIAnimator.SetBool("Hit_bool",true);
         playerAnim.SetBool("Box_bool",true);
-        yield return new WaitForSeconds(1);
+        camera.ShakeIt();
+        yield return new WaitForSeconds(.1f);
         AIAnimator.SetBool("Hit_bool",false);
         playerAnim.SetBool("Box_bool",false);
     }
