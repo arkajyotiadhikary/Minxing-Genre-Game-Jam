@@ -26,15 +26,15 @@ public class GameManager : MonoBehaviour
     {
         if(wordPicker.currentState == RandomWordPicker.gameState.desn)
         {
-            if(playerSpelling.spelledCorrect && aiSpelling.correctSpelled)
-            {
-                StartCoroutine(timer.ResetTimer());
-                uIEnableAndDisable.enableUI = true;
-                playerSpelling.spelledCorrect = false;
-                wordPicker.currentState = RandomWordPicker.gameState.choosingWord;
-                StartCoroutine(sticker.dissAble());
-            }
-            else if(!playerSpelling.spelledCorrect && aiSpelling.correctSpelled)
+            // if(playerSpelling.spelledCorrect && aiSpelling.correctSpelled)
+            // {
+            //     StartCoroutine(timer.ResetTimer());
+            //     uIEnableAndDisable.enableUI = true;
+            //     playerSpelling.spelledCorrect = false;
+            //     wordPicker.currentState = RandomWordPicker.gameState.choosingWord;
+            //     StartCoroutine(sticker.dissAble());
+            // }
+            if(!playerSpelling.spelledCorrect && aiSpelling.correctSpelled)
             {
                
                 StartCoroutine(timer.ResetTimer());
@@ -51,12 +51,12 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                wordPicker.currentState = RandomWordPicker.gameState.choosingWord;
                 StartCoroutine(timer.ResetTimer());
                 uIEnableAndDisable.enableUI = true;
                 playerSpelling.spelledCorrect = false;
-                wordPicker.currentState = RandomWordPicker.gameState.choosingWord;
+                aiSpelling.correctSpelled = false;
                 StartCoroutine(sticker.dissAble());
-
             }
         }
     }
@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
     IEnumerator playerHit()
     {
         playerSpelling.spelledCorrect = false;
+        aiSpelling.correctSpelled = false;
         wordPicker.currentState = RandomWordPicker.gameState.choosingWord;
         uIEnableAndDisable.enableUI = true;
         AIAnimator.SetBool("Box_bool",true);
@@ -76,9 +77,11 @@ public class GameManager : MonoBehaviour
     IEnumerator aiHit()
     {
         playerSpelling.spelledCorrect = false;
+
+
         wordPicker.currentState = RandomWordPicker.gameState.choosingWord;
         uIEnableAndDisable.enableUI = true;
-    
+        aiSpelling.correctSpelled = false;
         AIAnimator.SetBool("Hit_bool",true);
         playerAnim.SetBool("Box_bool",true);
         yield return new WaitForSeconds(1);

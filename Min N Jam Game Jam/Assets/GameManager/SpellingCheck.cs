@@ -50,8 +50,9 @@ public class SpellingCheck : MonoBehaviour
             if(inputField.text[i] != wordPicker.choosedWord[i])
             {
                 StartCoroutine(wrongeSpell());
+                inputField.text = "";
+                spelledCorrect = false;
                 uIEnableAndDisable.enableUI = false;
-                break;
             }
         }
     }

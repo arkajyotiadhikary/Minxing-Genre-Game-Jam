@@ -8,6 +8,10 @@ public class StickerShower : MonoBehaviour
     public GameObject right;
     public GameObject wrong;
 
+    public GameObject aiRight;
+    public GameObject aiWrong;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +23,9 @@ public class StickerShower : MonoBehaviour
     {
         right.SetActive(false);
         wrong.SetActive(false);
+        aiRight.SetActive(false);
+        aiWrong.SetActive(false);
+
         yield return new WaitForSeconds(2);
     }
 }
