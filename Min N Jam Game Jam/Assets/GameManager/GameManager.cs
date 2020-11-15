@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject right;
+    public GameObject wrong;
+
+
     public StickerShower sticker;
 
     public SpellingCheck playerSpelling;
@@ -34,9 +38,20 @@ public class GameManager : MonoBehaviour
             //     wordPicker.currentState = RandomWordPicker.gameState.choosingWord;
             //     StartCoroutine(sticker.dissAble());
             // }
+            if(playerSpelling.spelledCorrect && aiSpelling.correctSpelled)
+            {
+                // right.SetActive(true);
+                wordPicker.currentState = RandomWordPicker.gameState.choosingWord;
+                StartCoroutine(timer.ResetTimer());
+                uIEnableAndDisable.enableUI = true;
+                playerSpelling.spelledCorrect = false;
+                aiSpelling.correctSpelled = false;
+                StartCoroutine(sticker.dissAble());
+            }
+            
             if(!playerSpelling.spelledCorrect && aiSpelling.correctSpelled)
             {
-               
+                // right.SetActive(true);
                 StartCoroutine(timer.ResetTimer());
                 StartCoroutine(playerHit());
                 StartCoroutine(sticker.dissAble());
@@ -44,13 +59,14 @@ public class GameManager : MonoBehaviour
             }
             else if(playerSpelling.spelledCorrect && !aiSpelling.correctSpelled)
             {
+                // wrong.SetActive(true);
                 StartCoroutine(timer.ResetTimer());
                 StartCoroutine(aiHit());
                 StartCoroutine(sticker.dissAble());
-               
             }
             else
             {
+                // wrong.SetActive(true);
                 wordPicker.currentState = RandomWordPicker.gameState.choosingWord;
                 StartCoroutine(timer.ResetTimer());
                 uIEnableAndDisable.enableUI = true;

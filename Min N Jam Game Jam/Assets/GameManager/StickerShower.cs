@@ -23,9 +23,9 @@ public class StickerShower : MonoBehaviour
     {
         right.SetActive(false);
         wrong.SetActive(false);
+        yield return new WaitForSeconds(2);
         aiRight.SetActive(false);
         aiWrong.SetActive(false);
-
         yield return new WaitForSeconds(2);
     }
 }

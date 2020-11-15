@@ -6,6 +6,10 @@ using UnityEngine.UI;
 public class AISpellCorrectRatio : MonoBehaviour
 {
 
+    // Emojies
+    public GameObject right;
+    public GameObject wrong;
+
     public Text aiScore;
 
     public RandomWordPicker wordPicker;
@@ -27,6 +31,8 @@ public class AISpellCorrectRatio : MonoBehaviour
     float gate;
 
     private void Start() {
+        right.SetActive(false);
+        wrong.SetActive(false);
     }
 
     private void Update() {
@@ -66,12 +72,25 @@ public class AISpellCorrectRatio : MonoBehaviour
         float k = Random.Range(0f,101f);
         if(k<gate)
         {
+            StartCoroutine(Right());
             point += 1;
             correctSpelled = true;            
         }
         else{
+            StartCoroutine(Wrong());
             correctSpelled = false;
         }
         wordPicker.currentState = RandomWordPicker.gameState.desn;
+    }
+
+    IEnumerator Right()
+    {
+        right.SetActive(true);
+        yield return new WaitForSeconds(5);
+    }
+    IEnumerator Wrong()
+    {
+        wrong.SetActive(true);
+        yield return new WaitForSeconds(5);
     }
 }
