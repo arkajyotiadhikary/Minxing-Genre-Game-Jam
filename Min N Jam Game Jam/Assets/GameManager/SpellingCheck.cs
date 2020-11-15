@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class SpellingCheck : MonoBehaviour
 {
 
+    
+
     // images
     public GameObject right;
     public GameObject wrong;
@@ -15,7 +17,7 @@ public class SpellingCheck : MonoBehaviour
     public InputField inputField;
     public Text score;
 
-    int scorePoint;
+    public int scorePoint;
 
     public AISpellCorrectRatio aiSpelling;
 
@@ -32,13 +34,12 @@ public class SpellingCheck : MonoBehaviour
     void Update()
     {
         score.text = scorePoint.ToString();
-
         if(inputField.text.Length == wordPicker.choosedWord.Length)
         {
             if(inputField.text[inputField.text.Length-1] == wordPicker.choosedWord[wordPicker.choosedWord.Length-1])
             {
-                StartCoroutine(rightSpell());
                 scorePoint += 1;
+                StartCoroutine(rightSpell());
                 inputField.text = "";
                 spelledCorrect = true;
                 uIEnableAndDisable.enableUI = false;
@@ -49,10 +50,7 @@ public class SpellingCheck : MonoBehaviour
         {
             if(inputField.text[i] != wordPicker.choosedWord[i])
             {
-                StartCoroutine(wrongeSpell());
-                inputField.text = "";
-                spelledCorrect = false;
-                uIEnableAndDisable.enableUI = false;
+                wrn();        
             }
         }
     }
@@ -69,5 +67,12 @@ public class SpellingCheck : MonoBehaviour
         yield return new WaitForSeconds(2);
         wordPicker.currentState = RandomWordPicker.gameState.aiwritting;
     }
-    
+
+    public void wrn()
+    {
+        StartCoroutine(wrongeSpell());
+        inputField.text = "";
+        spelledCorrect = false;
+        uIEnableAndDisable.enableUI = false;
+    }
 }
