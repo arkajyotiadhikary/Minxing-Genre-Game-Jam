@@ -10,21 +10,17 @@ public class RandomWordPicker : MonoBehaviour
     public Text choosedText;
 
 
-    enum gameState
+    public enum gameState
     {
         choosingWord,
-        writingWord
+        writingWord,
+        aiwritting,
+        desn
     }
 
-    string choosedWord;
+    public string choosedWord;
     
-    gameState currentState;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public gameState currentState;
 
     // Update is called once per frame
     void Update()
@@ -32,14 +28,14 @@ public class RandomWordPicker : MonoBehaviour
         if(currentState == gameState.choosingWord)
         {
             StartCoroutine(ChooseRandomWord());
+            choosedWord = words[Random.Range(0,words.Length)];
+            currentState = gameState.writingWord;
         }
     }
 
-    IEnumerator ChooseRandomWord()
+    public IEnumerator ChooseRandomWord()
     {
-        choosedWord = words[Random.Range(0,words.Length)];
-        choosedText.text = choosedWord;
-        currentState = gameState.writingWord;
         yield return new WaitForSeconds(1);
+        choosedText.text = choosedWord;
     }
 }
