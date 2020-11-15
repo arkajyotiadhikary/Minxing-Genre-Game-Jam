@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public StickerShower sticker;
+
     public SpellingCheck playerSpelling;
     public RandomWordPicker wordPicker;
     public UIEnableAndDisable uIEnableAndDisable;
     public AISpellCorrectRatio aiSpelling;
-
+    public Timer timer;
 
     public Animator playerAnim;
     public Animator AIAnimator;
@@ -26,47 +28,61 @@ public class GameManager : MonoBehaviour
         {
             if(playerSpelling.spelledCorrect && aiSpelling.correctSpelled)
             {
+                StartCoroutine(timer.ResetTimer());
                 uIEnableAndDisable.enableUI = true;
                 playerSpelling.spelledCorrect = false;
                 wordPicker.currentState = RandomWordPicker.gameState.choosingWord;
+                StartCoroutine(sticker.dissAble());
             }
             else if(!playerSpelling.spelledCorrect && aiSpelling.correctSpelled)
             {
+               
+                StartCoroutine(timer.ResetTimer());
                 StartCoroutine(playerHit());
+                StartCoroutine(sticker.dissAble());
+
             }
             else if(playerSpelling.spelledCorrect && !aiSpelling.correctSpelled)
             {
+                StartCoroutine(timer.ResetTimer());
                 StartCoroutine(aiHit());
+                StartCoroutine(sticker.dissAble());
+               
             }
             else
             {
+                StartCoroutine(timer.ResetTimer());
                 uIEnableAndDisable.enableUI = true;
                 playerSpelling.spelledCorrect = false;
                 wordPicker.currentState = RandomWordPicker.gameState.choosingWord;
+                StartCoroutine(sticker.dissAble());
+
             }
         }
     }
 
     IEnumerator playerHit()
     {
+        playerSpelling.spelledCorrect = false;
+        wordPicker.currentState = RandomWordPicker.gameState.choosingWord;
+        uIEnableAndDisable.enableUI = true;
         AIAnimator.SetBool("Box_bool",true);
         playerAnim.SetBool("Hit_bool",true);
-        playerSpelling.spelledCorrect = false;
         yield return new WaitForSeconds(1);
         AIAnimator.SetBool("Box_bool",false);
         playerAnim.SetBool("Hit_bool",false);
-        wordPicker.currentState = RandomWordPicker.gameState.choosingWord;
-        uIEnableAndDisable.enableUI = true;
+       
     }
     IEnumerator aiHit()
     {
+        playerSpelling.spelledCorrect = false;
+        wordPicker.currentState = RandomWordPicker.gameState.choosingWord;
+        uIEnableAndDisable.enableUI = true;
+    
         AIAnimator.SetBool("Hit_bool",true);
         playerAnim.SetBool("Box_bool",true);
-        playerSpelling.spelledCorrect = false;
         yield return new WaitForSeconds(1);
         AIAnimator.SetBool("Hit_bool",false);
         playerAnim.SetBool("Box_bool",false);
-        wordPicker.currentState = RandomWordPicker.gameState.choosingWord;
-        uIEnableAndDisable.enableUI = true;
     }
 }
