@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class AISpellCorrectRatio : MonoBehaviour
 {
+    public AudioSource aiAud;
+    public AudioClip rightAns;
+    public AudioClip wrnAns;
 
     // Emojies
     public GameObject right;
@@ -85,11 +88,13 @@ public class AISpellCorrectRatio : MonoBehaviour
 
     IEnumerator Right()
     {
+        aiAud.PlayOneShot(rightAns);
         right.SetActive(true);
         yield return new WaitForSeconds(5);
     }
     IEnumerator Wrong()
     {
+        aiAud.PlayOneShot(wrnAns);
         wrong.SetActive(true);
         yield return new WaitForSeconds(5);
     }

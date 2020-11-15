@@ -6,6 +6,10 @@ using UnityEngine.UI;
 public class SpellingCheck : MonoBehaviour
 {
 
+    public AudioClip rightAns;
+    public AudioClip wrongAns;
+
+    public AudioSource playerAud;
     
 
     // images
@@ -58,11 +62,13 @@ public class SpellingCheck : MonoBehaviour
     IEnumerator rightSpell()
     {
         right.SetActive(true);
+        playerAud.PlayOneShot(rightAns);
         yield return new WaitForSeconds(2);
         wordPicker.currentState = RandomWordPicker.gameState.aiwritting;
     }
     IEnumerator wrongeSpell()
     {
+        playerAud.PlayOneShot(wrongAns);
         wrong.SetActive(true);
         yield return new WaitForSeconds(2);
         wordPicker.currentState = RandomWordPicker.gameState.aiwritting;

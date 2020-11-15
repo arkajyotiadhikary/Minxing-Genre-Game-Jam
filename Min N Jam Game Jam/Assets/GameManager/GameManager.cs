@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
 
+    
+
     public Text score;
 
     public GameObject EndScreen;
@@ -35,8 +37,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {   
         EndScreen.SetActive(false);
-        playerHealthSlieder.maxValue = playerMaxHealth;
-        aiHealthSlieder.maxValue = aiMaxHealth;
+        playerHealthSlieder.maxValue = 10;
+        aiHealthSlieder.maxValue = 10;
     }
 
     // Update is called once per frame
@@ -50,6 +52,30 @@ public class GameManager : MonoBehaviour
         if(playerHealthSlieder.value <= 0)
         {
             GameOver();
+        }
+        if(aiHealthSlieder.value<=0)
+        {
+            if(aiSpelling.aILevel == AISpellCorrectRatio.AILevel.Newbie)
+            {
+                aiSpelling.aILevel = AISpellCorrectRatio.AILevel.Easy;
+            }
+            else if(aiSpelling.aILevel == AISpellCorrectRatio.AILevel.Easy)
+            {
+                aiSpelling.aILevel = AISpellCorrectRatio.AILevel.Medium;
+            }
+            else if(aiSpelling.aILevel == AISpellCorrectRatio.AILevel.Medium)
+            {
+                aiSpelling.aILevel = AISpellCorrectRatio.AILevel.Hard;
+            }
+            else if(aiSpelling.aILevel == AISpellCorrectRatio.AILevel.Hard)
+            {
+                aiSpelling.aILevel = AISpellCorrectRatio.AILevel.Extream;
+            }
+            else if(aiSpelling.aILevel == AISpellCorrectRatio.AILevel.Extream)
+            {
+                aiSpelling.aILevel = AISpellCorrectRatio.AILevel.Extream;
+            }
+            aiMaxHealth = 10;
         }
 
         if(wordPicker.currentState == RandomWordPicker.gameState.desn)
